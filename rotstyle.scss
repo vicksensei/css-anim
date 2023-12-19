@@ -1,0 +1,51 @@
+body {
+  background-color: white;
+}
+.testRotate {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  animation: rotate 2s linear infinite;
+  position: relative;
+}
+
+.wrapper {
+  position: relative;
+  min-height: 100vh;
+}
+
+[class|="confetti"] {
+  position: absolute;
+  pointer-events: none;
+  
+}
+
+$colors: (red, yellow, aqua, green, blue, purple, orange);
+
+@for $i from 0 through 150 {
+  $w:1+ random(10);
+  $l: random(100);
+  .confetti-#{$i} {
+    width: #{$w}px;
+    height: #{$w * 0.4}px;
+    background-color: nth($colors, random(7));
+    top: -10%;
+    left: unquote($l + "%");
+    animation: linear
+      rotateDrop-#{$i}
+      unquote(2+ .5 * random(10) + "s")
+      unquote(random() + "s")
+      1;
+  }
+
+  @keyframes rotateDrop-#{$i} {
+    0% {
+      transform: rotate3d(1, 1, 1, 0deg);
+      top: -10%;
+    }
+    100% {
+      transform: rotate3d(1, 1, 1, unquote(180 * random(20) + "deg"));
+      top: 100vh;
+    }
+  }
+}
